@@ -1,0 +1,128 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bubble Sort</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #output {
+            text-align: left;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Bubble Sort</h1>
+
+        <label>Enter the size of the array:</label><br>
+        <input type="number" id="size" min="1" placeholder="Array size">
+        <button onclick="createInputs()">Enter</button>
+
+        <div id="inputs"></div>
+
+        <button onclick="sortArray()">Sort Numbers</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function createInputs() {
+            let n = parseInt(document.getElementById("size").value);
+            let inputs = document.getElementById("inputs");
+
+            inputs.innerHTML = "";
+
+            if (isNaN(n) || n < 1) {
+                inputs.innerHTML = "Please enter a valid size.";
+                return;
+            }
+
+            if (n > 100) {
+                inputs.innerHTML = "Maximum array size is 100.";
+                return;
+            }
+
+            for (let i = 0; i < n; i++) {
+                inputs.innerHTML +=
+                    "Enter number of index [" + i + "]: " +
+                    '<input type="number" id="num' + i + '"><br>';
+            }
+        }
+
+        function sortArray() {
+            let n = parseInt(document.getElementById("size").value);
+            let array = [];
+            let traversal = 0;
+            let output = document.getElementById("output");
+
+            if (isNaN(n) || n < 1 || n > 100) {
+                output.textContent = "Please enter a valid array size.";
+                return;
+            }
+
+            for (let i = 0; i < n; i++) {
+                let value = document.getElementById("num" + i);
+
+                if (!value || value.value.trim() === "") {
+                    output.textContent = "Please enter all the numbers.";
+                    return;
+                }
+
+                array[i] = Number(value.value);
+            }
+
+            let result = "";
+
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - 1 - i; j++) {
+                    if (array[j] > array[j + 1]) {
+                        let temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
+
+                    traversal++;
+                }
+
+                result += array.join(" ") + "\n";
+            }
+
+            result += "\nTraversal: " + traversal;
+            output.textContent = result;
+        }
+    </script>
+
+</body>
+</html>
+```
